@@ -1,0 +1,7 @@
+import pandas as pd
+
+sample = pd.read_csv("ESSQSS20.csv", nrows=5)
+print(f"Total columns in file: {len(sample.columns)}")
+print(f"\nFirst 30 column names:")
+print(sample.columns.tolist()[:30])
+sample.head()
