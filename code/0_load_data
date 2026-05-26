@@ -5,3 +5,21 @@ print(f"Total columns in file: {len(sample.columns)}")
 print(f"\nFirst 30 column names:")
 print(sample.columns.tolist()[:30])
 sample.head()
+# Load only the columns we'll actually use for the viz
+cols_needed = [
+    'cntry',      # country code
+    'essround',   # ESS round (1-9)
+    'imbgeco',    # immigration good for economy (0-10)
+    'imueclt',    # immigrants enrich culture (0-10)
+    'imwbcnt',    # immigrants make country better (0-10)
+    'agea',       # age
+    'eduyrs',     # years of education
+    'ctzcntr',    # citizen of country (1=yes, 2=no)
+    'brncntr'     # born in country (1=yes, 2=no)
+]
+
+ess = pd.read_csv("ESSQSS20.csv", usecols=cols_needed)
+print(f"Loaded shape: {ess.shape}")
+print(f"\nMissing values per column:")
+print(ess.isna().sum())
+ess.head()
