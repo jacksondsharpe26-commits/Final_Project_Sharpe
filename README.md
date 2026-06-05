@@ -34,11 +34,13 @@
 
 ## Key Findings
 
-- Economically dissatisfied respondents score 0.72 points lower on the immigration attitude index (0–10), p<0.001
-- No significant interaction between overall policy restrictiveness and economic dissatisfaction
-- Major policy changes specifically amplify anti-immigration attitudes among economically dissatisfied respondents (coef = -0.094, p<0.001)
-- Non-major policy changes show no significant interaction effect
+- Economically dissatisfied respondents score approximately 0.72 points lower on the immigration attitude index (0–10), p<0.001, across all specifications
+- **All policy changes:** policy restrictiveness alone does not predict attitudes (p=0.940); interaction with economic dissatisfaction is not significant (p=0.584)
+- **Major policy changes only:** policy restrictiveness alone remains non-significant (p=0.542); however the interaction between major policy restrictiveness and economic dissatisfaction is significant (coef = -0.094, p<0.001) — among economically dissatisfied respondents, more restrictive major policy is associated with more negative attitudes
+- **Non-major policy changes only:** neither main effect nor interaction is significant (p=0.244)
+- The pattern suggests policy salience matters — only major visible policy changes condition the relationship between economic dissatisfaction and immigration attitudes
 - Policy-attitude correlation varies geographically — negative in Western Europe, positive in Southern and Eastern Europe
+- Major policy turned net restrictive post-2016 across Europe, coinciding with the refugee crisis period
 
 ---
 
