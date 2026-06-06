@@ -49,3 +49,11 @@
 ```
 pip install pandas numpy matplotlib geopandas scipy statsmodels
 ```
+
+---
+
+## Live Website
+
+The project is published as an interactive data journalism website:
+
+**[https://final-project-sharpe.vercel.app](https://final-project-sharpe.vercel.app)**
