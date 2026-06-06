@@ -321,7 +321,7 @@
   .figure-caption strong { color: var(--ink); font-weight: 600; }
 
   .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem auto 3rem; max-width: var(--max-wide); }
-  .map-grid .figure-wrap { margin: 0; }
+  .map-grid { grid-auto-rows: 1fr; } .map-grid .figure-wrap { margin: 0; display: flex; flex-direction: column; } .map-grid .figure-wrap img { object-fit: contain; height: 280px; }
 
   .figure-wide { max-width: var(--max-wide); margin: 3rem auto; background: var(--white); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
   .figure-wide img { width: 100%; height: auto; display: block; }
