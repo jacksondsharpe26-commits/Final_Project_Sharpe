@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Policy, Economics, and Immigration Attitudes in Europe — Jackson Sharpe, QSS20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:       #00693E;
+    --green-light: #e6f2ec;
+    --green-mid:   #004d2e;
+    --green-dark:  #003828;
+    --ink:         #1a1a1a;
+    --muted:       #6b6b6b;
+    --rule:        #e0e0e0;
+    --bg:          #faf9f7;
+    --white:       #ffffff;
+    --serif:       'Source Serif 4', 'Georgia', serif;
+    --display:     'Playfair Display', 'Georgia', serif;
+    --sans:        'DM Sans', 'Helvetica Neue', sans-serif;
+    --max-prose:   700px;
+    --max-wide:    1000px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--green);
+    z-index: 200;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,249,247,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 52px;
+  }
+  .topbar-brand {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+
+  .hero {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(0,105,62,0.6) 0%, transparent 70%),
+                radial-gradient(ellipse at 20% 80%, rgba(0,56,40,0.8) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-kicker {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.12;
+    max-width: 860px;
+    margin: 0 auto 1.6rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-deck {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .byline-block {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 1.6rem;
+  }
+  .byline-block .by {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .byline-block .author { font-family: var(--sans); font-size: 1rem; font-weight: 600; color: var(--white); }
+  .byline-block .affil { font-family: var(--sans); font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+
+  .container { max-width: var(--max-wide); margin: 0 auto; padding: 0 2rem; }
+  .prose { max-width: var(--max-prose); margin: 0 auto; }
+
+  section { padding: 5rem 2rem; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.7rem;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1.6rem;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin: 2.5rem 0 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  p { margin-bottom: 1.3rem; color: var(--ink); }
+  p:last-child { margin-bottom: 0; }
+
+  .drop-cap::first-letter {
+    float: left;
+    font-family: var(--display);
+    font-size: 4.8em;
+    line-height: 0.78;
+    padding-right: 0.1em;
+    padding-top: 0.05em;
+    color: var(--green);
+    font-weight: 900;
+  }
+
+  blockquote.pull {
+    border-left: 3px solid var(--green);
+    margin: 3rem 0;
+    padding: 1rem 2rem;
+    background: var(--green-light);
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote.pull p {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--green-mid);
+    margin: 0;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--green);
+    border-radius: 6px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+  }
+  .stat-card .stat-num {
+    font-family: var(--display);
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-card .stat-label {
+    font-family: var(--sans);
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .country-table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-family: var(--sans); font-size: 0.88rem; }
+  .country-table thead tr { border-bottom: 2px solid var(--green); }
+  .country-table th { text-align: left; font-weight: 700; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0.8rem; }
+  .country-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--rule); color: var(--ink); }
+  .country-table tr:hover td { background: var(--green-light); }
+  .score-bar-wrap { display: flex; align-items: center; gap: 0.6rem; }
+  .score-bar { height: 8px; border-radius: 4px; flex-shrink: 0; }
+  .score-bar.low { background: #c0392b; }
+  .score-bar.high { background: var(--green); }
+  .score-val { font-weight: 700; font-size: 0.82rem; color: var(--ink); white-space: nowrap; }
+  .flag { font-size: 1rem; margin-right: 0.3rem; }
+
+  .finding-box {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.8rem 2rem;
+    margin: 2.5rem 0;
+    position: relative;
+  }
+  .finding-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--green);
+    border-radius: 8px 8px 0 0;
+  }
+  .finding-box .finding-label {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.6rem;
+  }
+  .finding-box .finding-text {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .callout-inline {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green-mid);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.1em 0.5em;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .method-note {
+    background: #f5f5f0;
+    border-left: 3px solid var(--rule);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .method-note p { font-family: var(--sans); font-size: 0.76rem; color: var(--muted); line-height: 1.65; margin: 0; }
+  .method-note strong { color: var(--ink); font-weight: 600; }
+
+  .figure-wrap {
+    margin: 3rem 0;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .figure-wrap img { width: 100%; height: auto; display: block; }
+  .figure-caption { padding: 0.9rem 1.4rem; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 0.72rem; color: var(--muted); line-height: 1.55; }
+  .figure-caption strong { color: var(--ink); font-weight: 600; }
+
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem auto 3rem; max-width: var(--max-wide); }
+  .map-grid .figure-wrap { margin: 0; }
+
+  .figure-wide { max-width: var(--max-wide); margin: 3rem auto; background: var(--white); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .figure-wide img { width: 100%; height: auto; display: block; }
+  .figure-wide .figure-caption { padding: 0.9rem 1.4rem; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 0.72rem; color: var(--muted); line-height: 1.55; }
+
+  .section-rule { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0; }
+  .section-rule::before, .section-rule::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .section-rule span { font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+
+  .timeline { position: relative; padding: 1rem 0 1rem 2.2rem; margin: 2rem 0; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--green), var(--rule)); }
+  .timeline-item { position: relative; margin-bottom: 1.8rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 10px; height: 10px; border-radius: 50%; background: var(--green); border: 2px solid var(--white); box-shadow: 0 0 0 2px var(--green); }
+  .timeline-item .tl-year { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 0.2rem; }
+  .timeline-item .tl-text { font-family: var(--sans); font-size: 0.88rem; color: var(--ink); line-height: 1.55; margin: 0; }
+
+  footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 3.5rem 2rem; text-align: center; }
+  footer p { font-family: var(--sans); font-size: 0.74rem; line-height: 1.8; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto 0.5rem; }
+  .footer-brand { font-family: var(--sans); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); font-size: 0.78rem; margin-bottom: 1.2rem; }
+
+
+  
+
+
+  /* ── Topbar dot nav ── */
+  .topbar-dots {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    list-style: none;
+  }
+  .topbar-dots li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .dot-label {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .dot-pip {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .topbar-dots li a:hover .dot-label { color: var(--green); }
+  .topbar-dots li a:hover .dot-pip { background: var(--green); transform: scale(1.4); }
+  .topbar-dots li.active .dot-label { color: var(--green); }
+  .topbar-dots li.active .dot-pip { background: var(--green); transform: scale(1.3); }
+
+  /* ── GitHub link in hero ── */
+  .github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.45rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    margin-top: 1.2rem;
+  }
+  .github-link:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+
+  @media (max-width: 700px) {
+    .topbar-nav { display: none; }
+    section { padding: 3.5rem 1.25rem; }
+    .hero { padding: 4rem 1.25rem 3.5rem; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .map-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+
+
+<nav class="topbar">
+  <span class="topbar-brand">QSS 20 · Dartmouth College</span>
+  <ul class="topbar-dots" id="topbar-dots">
+    <li><a href="#intro"><span class="dot-label">Intro</span><span class="dot-pip"></span></a></li>
+    <li><a href="#data"><span class="dot-label">Data</span><span class="dot-pip"></span></a></li>
+    <li><a href="#attitudes"><span class="dot-label">Attitudes</span><span class="dot-pip"></span></a></li>
+    <li><a href="#policy"><span class="dot-label">Policy</span><span class="dot-pip"></span></a></li>
+    <li><a href="#twist"><span class="dot-label">Major Policy</span><span class="dot-pip"></span></a></li>
+    <li><a href="#trends"><span class="dot-label">Trends</span><span class="dot-pip"></span></a></li>
+    <li><a href="#conclusion"><span class="dot-label">Conclusion</span><span class="dot-pip"></span></a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Immigration Policy · Public Attitudes · European Social Survey · 2002–2020</p>
+    <h1>Does Restrictive Immigration Policy Shape Public Attitudes Toward Immigration in Europe?</h1>
+    <p class="hero-deck">An empirical analysis of the relationship between immigration policy restrictiveness and public attitudes across 30 countries — and the role of economic satisfaction in that relationship.</p>
+    <div class="byline-block">
+      <span class="by">By</span>
+      <span class="author">Jackson Sharpe</span>
+      <span class="affil">Dartmouth College · QSS 20 · 2026</span>
+    </div>
+    <a class="github-link" href="https://github.com/jacksondsharpe26-commits/Final_Project_Sharpe/tree/main" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      View Code on GitHub
+    </a>
+  </div>
+</header>
+
+<!-- Introduction -->
+<section id="intro">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">Introduction</p>
+      <h2 class="reveal reveal-delay-1">The Question: Does Policy Move Opinion?</h2>
+
+      <p class="drop-cap reveal reveal-delay-2">Immigration policy and public attitudes toward immigration are often discussed as though they move together — as though a more restrictive policy environment produces a more hostile public, or a more open one produces a more welcoming one. This analysis asks whether the data actually support that assumption, using two decades of survey evidence and immigration policy records from across Europe.</p>
+
+      <p class="reveal">The analysis draws on the European Social Survey (ESS), Rounds 1–10 (2002–2020), covering 30 countries and nearly 400,000 native-born respondents, merged with the DEMIG Policy Database, which tracks immigration policy changes across Europe from 2000 to 2020. The central outcome is a composite immigration attitude score — a 0–10 index measuring how positively or negatively respondents view immigration on economic, cultural, and general dimensions.</p>
+
+      <p class="reveal">The core research question: is there evidence of an association between the restrictiveness of a country's immigration policy environment and the immigration attitudes of its population? And does economic satisfaction — how people feel about their own financial situation — modify that relationship?</p>
+
+      <div class="method-note reveal">
+        <p><strong>Note on causal inference:</strong> This is an observational study. The findings describe associations between variables and are consistent with certain interpretations, but they do not establish causal direction. Reverse causality — that public attitudes drive policy rather than the other way around — is a real possibility. Results should be read as empirical patterns in the data, not as evidence that policy causes attitude change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Data -->
+<section id="data">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">The Data</p>
+      <h2 class="reveal reveal-delay-1">Two Datasets, 30 Countries, Two Decades</h2>
+
+      <p class="reveal reveal-delay-2">The <strong>European Social Survey</strong> (ESS) has fielded comparable cross-national surveys every two years since 2002. This analysis uses Rounds 1–10 (2002–2020), restricted to native-born respondents, and merged with a country-level immigration policy panel. The immigration attitude composite averages three ESS items: imbgeco (economic effects), imueclt (cultural effects), and imwbcnt (general assessment), all on 0–10 scales where higher values indicate more positive attitudes toward immigration.</p>
+
+      <div class="stat-row reveal">
+        <div class="stat-card">
+          <div class="stat-num">392,865</div>
+          <div class="stat-label">Respondents in merged dataset</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">30</div>
+          <div class="stat-label">Countries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10</div>
+          <div class="stat-label">ESS rounds, 2002–2020</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4,929</div>
+          <div class="stat-label">Policy changes tracked</div>
+        </div>
+      </div>
+
+      <p class="reveal">The <strong>DEMIG Policy Database</strong> (University of Oxford) records 4,929 restrictive or liberalizing immigration policy changes across 31 European countries from 1900–2020. Each change is coded for direction (restrictive or liberalizing) and salience (major or non-major). The policy variable used in regression models is the net restrictive score within a 2-year window before each ESS wave: the number of restrictive changes minus the number of liberalizing changes.</p>
+
+      <p class="reveal">The analysis produces 233 country-year observations after merging. Country-year mean immigration attitude is 5.12 (SD = 0.77, range 2.87–7.30). Mean net restrictive score is −3.05 (SD = 8.54), indicating that the average country-year observation is modestly net liberalizing.</p>
+
+      <div class="method-note reveal">
+        <p><strong>Economic dissatisfaction:</strong> Operationalized from the ESS household income adequacy question. Respondents reporting their income is "difficult" or "very difficult" to live on are coded as economically dissatisfied (46% of individual-level sample, N = 173,216). This captures subjective financial strain, not absolute income level.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Attitudes -->
+<section id="attitudes">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">The Findings, Part I</p>
+      <h2 class="reveal reveal-delay-1">Economic Dissatisfaction Is Consistently Associated with Lower Immigration Attitudes</h2>
+
+      <p class="drop-cap reveal reveal-delay-2">Before examining the policy relationship, the data reveal a robust individual-level pattern: economically dissatisfied respondents score lower on the immigration attitude index across every country, every ESS round, and every model specification tested.</p>
+
+      <p class="reveal">The raw gap is <span class="callout-inline">0.94 points</span> on the 0–10 scale — economically satisfied respondents average 5.53 (SD = 1.98) versus 4.58 (SD = 2.23) for dissatisfied respondents. In regression models controlling for country fixed effects, year fixed effects, age, and years of education, the coefficient on economic dissatisfaction is approximately <span class="callout-inline">−0.72</span>, statistically significant at p &lt; 0.001 across all specifications.</p>
+
+      <div class="finding-box reveal">
+        <div class="finding-label">Finding 1</div>
+        <p class="finding-text">Economic dissatisfaction is associated with a roughly 0.72-point reduction in immigration attitude scores (0–10 scale), holding country, year, age, and education constant (p &lt; 0.001). This association is consistent across all model specifications.</p>
+      </div>
+    </div>
+
+    <div class="figure-wrap reveal" style="max-width:var(--max-prose);margin:2.5rem auto;">
+      <img src="../output/fig4_econ_barchart.png" alt="Bar chart: immigration attitudes by economic satisfaction" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 1.</strong> Mean immigration attitude scores for economically satisfied vs. dissatisfied respondents. Raw gap = 0.94 points (p &lt; 0.001, N = 378,971).</div>
+    </div>
+
+    <div class="prose">
+      <p class="reveal">Country-level averages (pooled across all ESS rounds) show substantial variation. The three countries with the lowest mean attitudes are Greece (3.45), Cyprus (3.91), and Czechia (4.04). The three highest are Iceland (6.91), Sweden (6.15), and Luxembourg (6.02).</p>
+
+      <h3 class="reveal">Lowest mean attitude scores</h3>
+      <table class="country-table reveal">
+        <thead><tr><th>Country</th><th>Mean Attitude (0–10)</th></tr></thead>
+        <tbody>
+          <tr><td><span class="flag">🇬🇷</span>Greece</td><td><div class="score-bar-wrap"><div class="score-bar low" style="width:calc(3.45/10*140px)"></div><span class="score-val">3.45</span></div></td></tr>
+          <tr><td><span class="flag">🇨🇾</span>Cyprus</td><td><div class="score-bar-wrap"><div class="score-bar low" style="width:calc(3.91/10*140px)"></div><span class="score-val">3.91</span></div></td></tr>
+          <tr><td><span class="flag">🇨🇿</span>Czechia</td><td><div class="score-bar-wrap"><div class="score-bar low" style="width:calc(4.04/10*140px)"></div><span class="score-val">4.04</span></div></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="reveal">Highest mean attitude scores</h3>
+      <table class="country-table reveal">
+        <thead><tr><th>Country</th><th>Mean Attitude (0–10)</th></tr></thead>
+        <tbody>
+          <tr><td><span class="flag">🇮🇸</span>Iceland</td><td><div class="score-bar-wrap"><div class="score-bar high" style="width:calc(6.91/10*140px)"></div><span class="score-val">6.91</span></div></td></tr>
+          <tr><td><span class="flag">🇸🇪</span>Sweden</td><td><div class="score-bar-wrap"><div class="score-bar high" style="width:calc(6.15/10*140px)"></div><span class="score-val">6.15</span></div></td></tr>
+          <tr><td><span class="flag">🇱🇺</span>Luxembourg</td><td><div class="score-bar-wrap"><div class="score-bar high" style="width:calc(6.02/10*140px)"></div><span class="score-val">6.02</span></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure-wide reveal">
+      <img src="../output/fig1_dotplot.png" alt="Dot plot of mean immigration attitude by country" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 2.</strong> Mean immigration attitude score by country (pooled across all ESS rounds), colored by region. Error bars show 95% confidence intervals.</div>
+    </div>
+
+    <div class="figure-wide reveal">
+      <img src="../output/fig2_europe_map.png" alt="Europe choropleth: correlation between policy restrictiveness and attitudes" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 3.</strong> Choropleth map showing the Pearson correlation between net policy restrictiveness and immigration attitudes at the individual level, by country. Negative values (blue) indicate that more restrictive policy environments are associated with lower attitudes; positive values (red) indicate the reverse.</div>
+    </div>
+
+    <div class="prose">
+      <h3 class="reveal">Country-level correlations vary considerably by region</h3>
+      <p class="reveal">The country-level correlations between policy restrictiveness and attitudes are heterogeneous. Latvia (r = −0.196), Portugal (r = −0.162), and Luxembourg (r = −0.134) show the strongest negative associations. Bulgaria (r = 0.167), Italy (r = 0.185), Slovakia (r = 0.189), and Iceland (r = 0.201) show positive associations. Several countries — France (r = −0.002), Belgium (r = −0.002), Denmark (r = 0.004) — show near-zero relationships. The regional maps below show this variation in more detail.</p>
+    </div>
+
+    <div class="map-grid reveal">
+      <div class="figure-wrap"><img src="../output/fig3_map_western.png" alt="Western Europe" loading="lazy" /><div class="figure-caption"><strong>Western Europe</strong></div></div>
+      <div class="figure-wrap"><img src="../output/fig3_map_northern.png" alt="Northern Europe" loading="lazy" /><div class="figure-caption"><strong>Northern Europe</strong></div></div>
+      <div class="figure-wrap"><img src="../output/fig3_map_eastern.png" alt="Eastern Europe" loading="lazy" /><div class="figure-caption"><strong>Eastern Europe</strong></div></div>
+      <div class="figure-wrap"><img src="../output/fig3_map_southern.png" alt="Southern Europe" loading="lazy" /><div class="figure-caption"><strong>Southern Europe</strong></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Policy -->
+<section id="policy">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">The Findings, Part II</p>
+      <h2 class="reveal reveal-delay-1">In the Main Specification, Policy Restrictiveness Shows No Significant Association with Attitudes</h2>
+
+      <p class="drop-cap reveal reveal-delay-2">The central regression model estimates the association between net policy restrictiveness (all changes) and individual immigration attitudes, controlling for country fixed effects, year fixed effects, age, and years of education, with standard errors clustered by country.</p>
+
+      <p class="reveal">The coefficient on net restrictive policy is <span class="callout-inline">0.003 (p = 0.940)</span> — not statistically distinguishable from zero. There is no evidence in this specification that countries with more restrictive policy environments have systematically different immigration attitudes, after accounting for country and year fixed effects. The economic dissatisfaction coefficient remains stable at <span class="callout-inline">−0.720 (p &lt; 0.001)</span>.</p>
+
+      <div class="finding-box reveal">
+        <div class="finding-label">Finding 2</div>
+        <p class="finding-text">In the main specification using all policy changes, net policy restrictiveness shows no statistically significant association with immigration attitudes (coef = 0.003, p = 0.940). Economic dissatisfaction is consistently associated with lower attitudes (coef = −0.720, p &lt; 0.001) across all models.</p>
+      </div>
+    </div>
+
+    <div class="figure-wrap reveal" style="max-width:var(--max-prose);margin:2.5rem auto;">
+      <img src="../output/fig5_regression_table.png" alt="Main regression table" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 4.</strong> Main regression results (all policy changes). OLS with country and year fixed effects; SEs clustered by country. N = 392,865.</div>
+    </div>
+
+    <div class="prose">
+      <p class="reveal">The non-major (routine) policy sub-analysis produces similar results: net non-major policy coefficient is −0.003 (p = 0.946), and the interaction between non-major policy and economic dissatisfaction is 0.045 (p = 0.244) — neither is statistically significant. The results are consistent across specifications: at the level of all or routine policy changes, there is no detectable association between policy restrictiveness and attitudes in these data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- The Twist -->
+<section id="twist">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">The Findings, Part III</p>
+      <h2 class="reveal reveal-delay-1">Major Policy Changes Tell a Different Story</h2>
+
+      <p class="drop-cap reveal reveal-delay-2">The DEMIG database distinguishes between routine policy adjustments and major policy changes — those coded as high-salience, landmark reforms. When the analysis is restricted to major changes only, a significant interaction emerges that does not appear in the all-policy or non-major specifications.</p>
+
+      <p class="reveal">The main effect of major policy restrictiveness remains insignificant (coef = 0.018, p = 0.542). But the interaction between major policy restrictiveness and economic dissatisfaction is <span class="callout-inline">−0.094 (p &lt; 0.001)</span>. This indicates that among economically dissatisfied respondents, a more restrictive major policy environment is associated with lower immigration attitudes relative to economically satisfied respondents. Among the satisfied group, the association between major policy restrictiveness and attitudes is not significant.</p>
+
+      <div class="finding-box reveal">
+        <div class="finding-label">Finding 3 — Key Result</div>
+        <p class="finding-text">The interaction between major restrictive policy changes and economic dissatisfaction is statistically significant (coef = −0.094, p &lt; 0.001). This interaction does not appear in the all-policy or non-major specifications, suggesting it is specific to high-salience policy changes.</p>
+      </div>
+    </div>
+
+    <div class="figure-wrap reveal" style="max-width:var(--max-prose);margin:2.5rem auto;">
+      <img src="../output/fig12_major_interaction.png" alt="Interaction plot: major policy by economic satisfaction" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 5.</strong> Predicted immigration attitudes by net major policy restrictiveness, split by economic satisfaction group. Diverging lines indicate the significant interaction (p &lt; 0.001): among economically dissatisfied respondents, more restrictive major policy environments are associated with lower attitudes; among satisfied respondents, the association is flat.</div>
+    </div>
+
+    <div class="figure-wrap reveal" style="max-width:var(--max-prose);margin:2.5rem auto;">
+      <img src="../output/fig13_all_interaction.png" alt="Interaction plot: all policy by economic satisfaction" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 6.</strong> Predicted immigration attitudes using all policy changes. Parallel lines indicate no significant interaction — the pattern in Figure 5 is specific to major policy changes.</div>
+    </div>
+
+    <div class="figure-wrap reveal" style="max-width:var(--max-prose);margin:2.5rem auto;">
+      <img src="../output/fig10_major_regression_table.png" alt="Major policy regression table" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 7.</strong> Sub-analysis regression results (major policy changes only). Interaction term: −0.094 (p &lt; 0.001). Compare to all-policy interaction of 0.019 (p = 0.584).</div>
+    </div>
+
+    <div class="prose">
+      <p class="reveal">These results are consistent with the interpretation that major, high-salience policy changes may be more visible to the public and thus more likely to be associated with attitudinal patterns — particularly among those who are economically dissatisfied. However, given the observational design, this interpretation cannot be tested directly here. The direction of the association is also worth noting: among dissatisfied respondents, a more restrictive major policy environment is associated with <em>lower</em> immigration attitudes, not higher ones, which is contrary to a simple "reassurance" hypothesis.</p>
+
+      <blockquote class="pull reveal">
+        <p>"The interaction between major policy restrictiveness and economic dissatisfaction is the most substantively distinctive finding in the data — but it should be read as an empirical pattern, not a causal mechanism."</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- Trends -->
+<section id="trends">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">The Historical Picture</p>
+      <h2 class="reveal reveal-delay-1">Policy and Attitude Trends, 2002–2020</h2>
+
+      <p class="reveal reveal-delay-2">Setting aside regression results, the raw trends in policy and attitudes over the study period are informative on their own. Mean immigration attitudes across Europe have changed over time, and the composition of policy changes — particularly the shift in major policy from net liberalizing to net restrictive after 2016 — provides important context for interpreting the cross-sectional variation.</p>
+
+      <div class="section-rule reveal"><span>Timeline</span></div>
+
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="tl-year">2002–2008</div>
+          <p class="tl-text">Early ESS rounds. Policy across most countries is net liberalizing in aggregate. Mean European immigration attitudes are in the moderate range (around 5.0–5.2).</p>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2008–2012</div>
+          <p class="tl-text">Financial crisis period. Economically dissatisfied share of population rises across several countries. Mean attitudes show modest decline in the most affected economies.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2013–2015</div>
+          <p class="tl-text">Rising asylum applications across Europe. Policy environment begins shifting; major restrictive changes increase in frequency. Attitudes hold relatively stable in aggregate.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2016–2018</div>
+          <p class="tl-text">Net major policy restrictiveness turns positive for the first time in the data. Several large EU member states enact high-salience restrictive reforms.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2018–2020</div>
+          <p class="tl-text">Restrictive major policy momentum continues. Mean attitudes in ESS Round 10 (2020) remain broadly stable relative to earlier rounds at the European level.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="figure-wide reveal">
+      <img src="../output/fig6_time_trend.png" alt="Mean immigration attitude across Europe over time" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 8.</strong> Mean immigration attitude across Europe, ESS Rounds 1–10 (2002–2020). Shaded band shows 95% confidence interval.</div>
+    </div>
+
+    <div class="figure-wide reveal">
+      <img src="../output/fig7_all_policy_yearly.png" alt="All policy changes per year" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 9.</strong> Net restrictive immigration policy actions per year, 2000–2020 (all changes). Positive values = net restrictive; negative values = net liberalizing.</div>
+    </div>
+
+    <div class="figure-wide reveal">
+      <img src="../output/fig8_major_policy_yearly.png" alt="Major policy changes per year" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 10.</strong> Net restrictive <em>major</em> policy actions per year. Net liberalizing through approximately 2015; turns net restrictive post-2016.</div>
+    </div>
+
+    <div class="figure-wide reveal">
+      <img src="../output/fig11_major_europe_map.png" alt="Europe choropleth: major policy correlations" loading="lazy" />
+      <div class="figure-caption"><strong>Figure 11.</strong> Choropleth map using major policy change correlations only. Geographic pattern differs from the all-policy map, with stronger negative correlations in parts of Western Europe.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Conclusion -->
+<section id="conclusion">
+  <div class="container">
+    <div class="prose">
+      <p class="section-label reveal">Conclusion</p>
+      <h2 class="reveal reveal-delay-1">Summary of Findings</h2>
+
+      <p class="drop-cap reveal reveal-delay-2">This analysis examined the association between immigration policy restrictiveness and public attitudes toward immigration across 30 European countries over two decades, using individual-level ESS data merged with a country-level DEMIG policy panel.</p>
+
+      <p class="reveal">Three consistent patterns emerge from the data. First, economic dissatisfaction is robustly associated with lower immigration attitudes — a coefficient of approximately −0.72 on a 0–10 scale, significant at p &lt; 0.001 across all model specifications, controlling for country and year fixed effects, age, and education. Second, in the main all-policy specification, net policy restrictiveness shows no statistically significant association with immigration attitudes (coef = 0.003, p = 0.940). Third, when analysis is restricted to major (high-salience) policy changes, a significant interaction emerges: among economically dissatisfied respondents, more restrictive major policy environments are associated with lower immigration attitudes (interaction coef = −0.094, p &lt; 0.001), while no significant association is found among the economically satisfied group.</p>
+
+      <div class="finding-box reveal">
+        <div class="finding-label">Summary</div>
+        <p class="finding-text">Economic dissatisfaction is consistently associated with lower immigration attitudes. Policy restrictiveness overall shows no significant association. The interaction between major policy changes and economic dissatisfaction is significant — but this pattern should be interpreted with caution given the observational design and the small number of major policy events per country.</p>
+      </div>
+
+      <p class="reveal">Several limitations bear noting. The analysis is observational, so the direction of any relationship between policy and attitudes cannot be established — attitudes may influence policy as much as or more than policy influences attitudes. The country-year cell sizes for major policy changes are small, and clustering standard errors at the country level may not fully account for the non-independence of observations within country-round cells. The attitude composite treats three ESS items as interchangeable, which may obscure meaningful variation across economic, cultural, and general dimensions. Future work could extend this framework with panel data, quasi-experimental variation in policy, or decomposed attitude measures.</p>
+
+      <div class="section-rule reveal"><span>Methodology</span></div>
+
+      <div class="method-note reveal">
+        <p><strong>Data sources:</strong> European Social Survey (ESS) Rounds 1–10, 2002–2020; DEMIG Policy Database (University of Oxford). <strong>Sample:</strong> N = 392,865 native-born respondents after merging with policy panel; 233 country-year observations. <strong>Models:</strong> OLS with country and year fixed effects; SEs clustered by country; controls for age and years of education. <strong>Attitude composite:</strong> Mean of ESS items imbgeco, imueclt, imwbcnt (0–10). <strong>Policy variable:</strong> Net restrictive actions (restrictive minus liberalizing) in 2-year window before each ESS wave. <strong>Major policy:</strong> 836 changes coded as high-salience by DEMIG. <strong>Economic dissatisfaction:</strong> Binary indicator from ESS income adequacy question; 46% of sample (N = 173,216).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">QSS 20 Final Project</div>
+  <p>Produced for QSS 20 at Dartmouth College, 2026. Data: European Social Survey (ESS) and the DEMIG Policy Database (University of Oxford). All statistical analysis is original work by the author.</p>
+  <p>© 2026 Jackson Sharpe, Dartmouth College. For academic use.</p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+
+  // Topbar dot nav active state
+  const sections = ['intro','data','attitudes','policy','twist','trends','conclusion'];
+  const dotItems = document.querySelectorAll('#topbar-dots li');
+
+  function updateDots() {
+    let current = sections[0];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) current = id;
+    });
+    dotItems.forEach((item, i) => {
+      item.classList.toggle('active', sections[i] === current);
+    });
+  }
+  window.addEventListener('scroll', updateDots);
+  updateDots();
+
+</script>
+</body>
+</html>
