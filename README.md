@@ -39,8 +39,7 @@
 - **Major policy changes only:** policy restrictiveness alone remains non-significant (p=0.542); however the interaction between major policy restrictiveness and economic dissatisfaction is significant (coef = -0.094, p<0.001) — among economically dissatisfied respondents, more restrictive major policy is associated with more negative attitudes
 - **Non-major policy changes only:** neither main effect nor interaction is significant (p=0.244)
 - The pattern suggests policy salience matters — only major visible policy changes condition the relationship between economic dissatisfaction and immigration attitudes
-- Policy-attitude correlation varies geographically — negative in Western Europe, positive in Southern and Eastern Europe
-- Major policy turned net restrictive post-2016 across Europe, coinciding with the refugee crisis period
+- Policy-attitude correlation varies geographically — negative in Western Europe, positive in Southern Europe and mixed Eastern and Northern Europe
 
 ---
 
